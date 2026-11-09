@@ -1,4 +1,7 @@
+use async_tcp_chat_engine::server::listener;
+use tokio::io;
+
 #[tokio::main]
-async fn main() {
-    println!("Async TCP Chat Engine");
+async fn main() -> io::Result<()> {
+    listener::run().await
 }
