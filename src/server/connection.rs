@@ -2,10 +2,14 @@
 use tokio::io::{self, AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 
-/// Handles an individual TCP connection.
+/// Handles an individual client TCP connection.
 ///
-/// Reads incoming bytes and echoes them back to the client
-/// until the connection is closed.
+/// Reads data from the client and echoes it back
+/// until the connection is closed or an I/O error occurs.
+///
+/// # Errors
+///
+/// Returns an error if reading from or writing to the TCP stream fails.
 pub async fn handle_connection(socket: TcpStream) -> io::Result<()> {
     let (mut reader, mut writer) = io::split(socket);
     let mut buffer = vec![0u8; 1024];
